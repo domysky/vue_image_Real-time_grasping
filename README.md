@@ -1,6 +1,6 @@
 # image_grasping
 
-> 片抓取[3~抓取
+> vue实现图片实时抓取
 
 ## Build Setup
 
