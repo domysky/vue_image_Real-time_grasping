@@ -12,7 +12,7 @@
           <div class="tip-box">{{picPath ? '抓取成功':'正在抓取'}}</div>
         </div>
       </div>
-      <p class="text-center text">{{picPath ? '采集成功，请按确认提交':'对准人脸，系统自动抓拍'}}</p>
+    
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
         video = document.getElementById("video"),
         videoObj = { video: true },
         errBack = function(error) {
-          alert("error: " + error);
+          // alert("error: " + error);
           let msg = "";
           if (error.name == "NotFoundError" || error.name == "DevicesNotFoundError") {
             msg = error.msg || "无法找到视频设备";
@@ -97,7 +97,7 @@ export default {
         navigator.getUserMedia(
           videoObj,
           function(stream) {
-            alert("stream: " + stream);
+            // alert("stream: " + stream);
             video.srcObject = stream;
             video.play();
             _this.stream = stream;
@@ -141,8 +141,9 @@ export default {
       //以下开始 数据
       var imageBase64 = canvans.toDataURL();
       var blob = this.dataURItoBlob(imageBase64); // 上一步中的函数
-      console.log(blob);
-      // this.picPath = imgPath;
+      console.log(imageBase64,blob);
+      this.picPath = imageBase64;
+      clearInterval(this.intervalTimer); //关闭定时器
     }
   },
   components: {}
