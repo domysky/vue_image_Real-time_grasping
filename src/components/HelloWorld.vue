@@ -14,7 +14,6 @@
       </div>
       <p class="text-center text">{{picPath ? '采集成功，请按确认提交':'对准人脸，系统自动抓拍'}}</p>
     </div>
-
   </div>
 </template>
 <script type="text/javascript">
@@ -60,27 +59,15 @@ export default {
         video = document.getElementById("video"),
         videoObj = { video: true },
         errBack = function(error) {
-          alert("error: "+error);
+          alert("error: " + error);
           let msg = "";
-          if (
-            error.name == "NotFoundError" ||
-            error.name == "DevicesNotFoundError"
-          ) {
+          if (error.name == "NotFoundError" || error.name == "DevicesNotFoundError") {
             msg = error.msg || "无法找到视频设备";
-          } else if (
-            error.name == "NotReadableError" ||
-            error.name == "TrackStartError"
-          ) {
+          } else if ( error.name == "NotReadableError" || error.name == "TrackStartError" ) {
             msg = error.msg || "未能分配视频源";
-          } else if (
-            error.name == "OverconstrainedError" ||
-            error.name == "ConstraintNotSatisfiedErrror"
-          ) {
+          } else if ( error.name == "OverconstrainedError" || error.name == "ConstraintNotSatisfiedErrror" ) {
             msg = error.msg || "约束无法满足";
-          } else if (
-            error.name == "NotAllowedError" ||
-            error.name == "PermissionDeniedError"
-          ) {
+          } else if ( error.name == "NotAllowedError" || error.name == "PermissionDeniedError" ) {
             msg = error.msg || "用户代理或者当前平台不允许该请求";
           } else if (error.name == "TypeError") {
             msg = error.msg || "必须至少请求一个音频和视频";
@@ -107,8 +94,10 @@ export default {
           navigator.mozGetUserMedia ||
           navigator.mediaDevices.getUserMedia;
         // alert("if: >>> "+navigator.getUserMedia);
-        navigator.getUserMedia(videoObj,function(stream) {
-            alert("stream: "+stream);
+        navigator.getUserMedia(
+          videoObj,
+          function(stream) {
+            alert("stream: " + stream);
             video.srcObject = stream;
             video.play();
             _this.stream = stream;
@@ -117,11 +106,12 @@ export default {
               context.drawImage(video, 0, 0, 520, 520);
               _this.CatchCode();
             }, 10000);
-          },errBack);
+          },
+          errBack
+        );
       } else {
         // alert("else: >>>" );
         this.no_video = true;
-       
       }
     },
     dataURItoBlob(base64Data) {
@@ -151,17 +141,9 @@ export default {
       //以下开始 数据
       var imageBase64 = canvans.toDataURL();
       var blob = this.dataURItoBlob(imageBase64); // 上一步中的函数
-      console.log(blob)
+      console.log(blob);
       // this.picPath = imgPath;
-      
-    },
-
-    // 上传图片  识别图片
-    canvasSelImg(eve) {
-      
-    },
-
-   
+    }
   },
   components: {}
 };
@@ -208,28 +190,24 @@ export default {
   border: 1px solid #999;
   overflow: hidden;
   position: relative;
-
-  
 }
 img {
-    width: 100%;
+  width: 100%;
 }
 
 video {
   width: 550px;
   height: 550px;
 }
-.tip-box{
-      background: rgba(0, 0, 0, 0.36);
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-      text-align: center;
-      padding: 30px 0;
-      color: #fff;
-    }
-  
-  
+.tip-box {
+  background: rgba(0, 0, 0, 0.36);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  padding: 30px 0;
+  color: #fff;
+}
 </style>
 
 
